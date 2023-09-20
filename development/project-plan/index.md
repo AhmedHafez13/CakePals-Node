@@ -32,18 +32,17 @@ Using Docker can make it easier to manage dependencies and ensure consistent env
 
 1. [**Setting Up the Project Structure**](./step-01-setting-up-the-project-structure)
 
-   - Create a new directory for your project.
+   - Create a new directory for the project.
    - Initialize a new TypeScript project using `npm init -y` and install necessary dependencies (`express`, `mongoose`, `passport`, etc.).
    - Set up a TypeScript configuration file (`tsconfig.json`).
 
-2. **Designing the Data Models**
+2. **Dockerizing the Application**
+
+   - Create a Dockerfile and a docker-compose.yml file to containerize the application.
+
+3. **Designing the Data Models**
 
    - Define the data models for Users, Bakers, Products, Orders, and Ratings. Consider how they relate to each other (e.g., a User can be a Member or a Baker).
-
-3. **Setting Up MongoDB**
-
-   - Install and set up MongoDB on your local machine or use a cloud-based solution (like MongoDB Atlas).
-   - Connect your application to the MongoDB database using a library like Mongoose.
 
 4. **Implementing Authentication**
 
@@ -59,15 +58,102 @@ Using Docker can make it easier to manage dependencies and ensure consistent env
 
 7. **Testing**
 
-   - Write unit tests and integration tests using Jest to ensure the functionality of your endpoints and business logic.
+   - Write unit tests and integration tests using Jest to ensure the functionality of the endpoints and business logic.
 
 8. **Adding Bonus Features (Time Permitting)**
 
    - Consider adding features like database caching, setting up CI/CD, or deploying the application to the cloud.
 
-9. **Dockerizing the Application**
+9. **Writing the Readme File**
+   - Describe the tech stack you used, the reasoning behind the design decisions, implementation challenges, and any additional thoughts you'd like to share.
 
-   - Create a Dockerfile and a docker-compose.yml file to containerize your application.
+## Project Structure
 
-10. **Writing the Readme File**
-    - Describe the tech stack you used, the reasoning behind your design decisions, implementation challenges, and any additional thoughts you'd like to share.
+```plaintext
+CakePals-Node/
+├── development/
+│   ├── api-docs/
+│   ├── requirements/
+│   ├── project-plan/
+│   └── ...
+├── src/
+│   ├── index.ts
+│   ├── server.ts
+│   ├── config/
+│   ├── middleware/
+│   ├── notifications/
+│   ├── plugins/
+│   ├── services/
+│   ├── types/
+│   └── ...
+├── modules/
+│   ├── first-module/
+│   │   ├── first-module.controllers.ts
+│   │   ├── first-module.models.ts
+│   │   ├── first-module.routes.ts
+│   │   ├── tests/
+│   │   └── ...
+│   ├── second-module/
+│   │   ├── first-module.controllers.ts
+│   │   ├── first-module.models.ts
+│   │   ├── first-module.routes.ts
+│   │   ├── tests/
+│   │   └── ...
+│   └── ...
+├── types/
+│   ├── ...
+│   └── ...
+├── .env
+├── .git
+├── .gitignore
+├── backend.Dockerfile
+├── mongo.Dockerfile
+├── docker-compose.yml
+├── jest.config
+├── tsconfig.json
+└── README.md
+```
+
+1. **`development/` Directory**:
+
+   - Contains folders like `api-docs/`, `requirements/`, and `project-plan/`. Track of project-related documentation and planning.
+
+2. **`src/` Directory**:
+
+   - **`index.ts`**: Entry point of the application.
+   - **`server.ts`**: This is where the server is initialized and started.
+   - **`config/`**: Configuration files for the application. This is where you can store environment-specific settings.
+   - **`middleware/`**: Custom middleware functions used in the application.
+   - **`notifications/`**: Logic related to notifications (e.g., email notifications).
+   - **`plugins/`**: Any third-party plugins or extensions used in the application.
+   - **`services/`**: Business logic services that handle specific functionalities.
+   - **`types/`**: Custom TypeScript type definitions for the application.
+
+3. **`modules/` Directory**:
+
+   - Follows a modular approach. Each module (e.g., `first-module/`, `second-module/`) contains its own controllers, models, routes, and tests. This promotes separation of concerns and makes it easier to manage different parts of the application.
+
+4. **`types/` Directory**:
+
+   - Contains additional TypeScript type definitions. This is useful for defining custom types that are used across multiple modules.
+
+5. **Configuration Files**:
+
+   - **`.env`**: Configuration file for environment-specific variables. It's good practice to keep sensitive information (like database credentials) in a separate file.
+   - **`.gitignore`**: Specifies which files and directories should be ignored by version control. This helps keep the repository clean.
+
+6. **Docker Files**:
+
+   - Docker files for setting up containers. This allows for consistent development and deployment environments.
+   - `docker-compose.yml` orchestrates the interaction between different Docker containers.
+
+7. **Testing Configuration**:
+
+   - **`jest.config`**: Configuration file for Jest, the testing framework.
+
+8. **`tsconfig.json`**:
+
+   - Configuration file for TypeScript. It defines how TypeScript should compile the code.
+
+9. **`README.md`**:
+   - The README file provides essential information about the project, including how to set it up, the tech stack used, and any other important details.
