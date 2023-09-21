@@ -40,9 +40,10 @@ Using Docker can make it easier to manage dependencies and ensure consistent env
 
    - Create a Dockerfile and a docker-compose.yml file to containerize the application.
 
-3. **Designing the Data Models**
+3. [**Designing the Data Models**](./step-03-designing-the-data-models.md)
 
-   - Define the data models for Users, Bakers, Products, Orders, and Ratings. Consider how they relate to each other (e.g., a User can be a Member or a Baker).
+   - Define the data models for Users, Bakers, Products, Orders, and Ratings.
+   - Implement the models using Mongoose
 
 4. **Implementing Authentication**
 
@@ -81,23 +82,27 @@ CakePals-Node/
 │   ├── server.ts
 │   ├── config/
 │   ├── middleware/
+│   ├── settings/
 │   ├── notifications/
 │   ├── plugins/
 │   ├── services/
 │   ├── types/
-│   └── ...
-├── modules/
-│   ├── first-module/
-│   │   ├── first-module.controllers.ts
-│   │   ├── first-module.models.ts
-│   │   ├── first-module.routes.ts
-│   │   ├── tests/
+│   ├── models/
+│   │   ├── BaseModel.ts
 │   │   └── ...
-│   ├── second-module/
-│   │   ├── first-module.controllers.ts
-│   │   ├── first-module.models.ts
-│   │   ├── first-module.routes.ts
-│   │   ├── tests/
+│   ├── modules/
+│   │   ├── first-module/
+│   │   │   ├── first-module.controllers.ts
+│   │   │   ├── first-module.models.ts
+│   │   │   ├── first-module.routes.ts
+│   │   │   ├── tests/
+│   │   │   └── ...
+│   │   ├── second-module/
+│   │   │   ├── first-module.controllers.ts
+│   │   │   ├── first-module.models.ts
+│   │   │   ├── first-module.routes.ts
+│   │   │   ├── tests/
+│   │   │   └── ...
 │   │   └── ...
 │   └── ...
 ├── types/
@@ -126,8 +131,9 @@ CakePals-Node/
    - **`middleware/`**: Custom middleware functions used in the application.
    - **`notifications/`**: Logic related to notifications (e.g., email notifications).
    - **`plugins/`**: Any third-party plugins or extensions used in the application.
-   - **`services/`**: Business logic services that handle specific functionalities.
-   - **`types/`**: Custom TypeScript type definitions for the application.
+   - **`services/`**: Handle the communication with external services and manage tasks such as sending emails.
+   - **`types/`**: Custom shared TypeScript type definitions for the application.
+   - **`models/`**: Contains the base model and the shared models used in the application.
 
 3. **`modules/` Directory**:
 
