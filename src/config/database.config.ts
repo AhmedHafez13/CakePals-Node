@@ -1,4 +1,4 @@
-import { appSettings } from '../shared/app.settings';
+import { appSettings } from '../settings/app.settings';
 import mongoose from 'mongoose';
 
 class DatabaseConfig {
