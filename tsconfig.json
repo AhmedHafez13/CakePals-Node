@@ -1,4 +1,9 @@
 {
+  "ts-node": {
+    "require": [
+      "tsconfig-paths/register"
+    ]
+  },
   "compilerOptions": {
     /* Projects */
     "incremental": true,
@@ -64,7 +69,7 @@
   "include": [
     "src/**/*",
     "test/**/*"
-  ],
+, "src/types/express.d.ts"  ],
   "exclude": [
     "node_modules",
     "dist"
