@@ -30,22 +30,22 @@ Using Docker can make it easier to manage dependencies and ensure consistent env
 
 ## Initial Steps
 
-1. [**Setting Up the Project Structure**](./step-01-setting-up-the-project-structure)
+1. `[DONE]` [**Setting Up the Project Structure**](./step-01-setting-up-the-project-structure)
 
    - Create a new directory for the project.
    - Initialize a new TypeScript project using `npm init -y` and install necessary dependencies (`express`, `mongoose`, `passport`, etc.).
    - Set up a TypeScript configuration file (`tsconfig.json`).
 
-2. **Dockerizing the Application**
+2. `[DONE]` **Dockerizing the Application**
 
    - Create a Dockerfile and a docker-compose.yml file to containerize the application.
 
-3. [**Designing the Data Models**](./step-03-designing-the-data-models.md)
+3. `[DONE]` [**Designing the Data Models**](./step-03-designing-the-data-models.md)
 
    - Define the data models for Users, Bakers, Products, Orders, and Ratings.
    - Implement the models using Mongoose
 
-4. **Implementing Authentication**
+4. `[DONE]` [**Implementing Authentication**](./step-04-implementing-authentication)
 
    - Set up Passport.js to handle user authentication. Create routes for registration, login, and authentication middleware.
 
@@ -87,8 +87,9 @@ CakePals-Node/
 │   ├── plugins/
 │   ├── services/
 │   ├── types/
-│   ├── models/
-│   │   ├── BaseModel.ts
+│   ├── shared/
+│   │   ├── base.model.ts
+│   │   ├── base.router.ts
 │   │   └── ...
 │   ├── modules/
 │   │   ├── first-module/
