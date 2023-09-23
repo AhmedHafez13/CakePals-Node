@@ -1,14 +1,17 @@
 import { NextFunction, Response } from 'express';
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import UserProvider from '../modules/user/user.provider';
 import ProfileProvider from '../modules/profile/profile.provider';
-import { AppRequest } from '../types/general.types';
 import { UserRole } from '../modules/profile/profile.enums';
+import { UserDocument } from '../modules/user/user.model';
+import { ProfileDocument } from '../modules/profile/profile.model';
+import { AppRequest } from '../types/general.types';
+import { jwtSettings } from '../settings/jwt.settings';
 
 class AuthMiddleware {
   public authenticate = async (
     req: AppRequest,
-    res: Response,
+    _res: Response,
     next: NextFunction
   ) => {
     const token = this.extractTokenFromHeader(req.headers.authorization);
@@ -18,27 +21,29 @@ class AuthMiddleware {
     }
 
     try {
-      const decoded = this.verifyToken(token, process.env.JWT_SECRET || '');
+      const payload = this.verifyToken(token);
 
-      if (typeof decoded === 'object' && decoded.hasOwnProperty('id')) {
-        const user = await UserProvider.findUserById(decoded['id']);
-
-        if (user) {
-          const profile = await ProfileProvider.findUserProfile(user._id);
-
-          if (profile) {
-            req.profile = profile;
-          }
-
-          req.user = user;
-          return next();
-        }
+      if (payload && payload.hasOwnProperty('id')) {
+        const { user, profile } = await this.getUserAndProfile(payload);
+        if (user) req.user = user;
+        if (profile) req.profile = profile;
       }
 
-      return res.status(401).json({ message: 'Unauthorized' });
+      return next();
     } catch (error) {
+      return next();
+    }
+  };
+
+  public isAuthenticated = (
+    req: AppRequest,
+    res: Response,
+    next: NextFunction
+  ) => {
+    if (!req.user) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
+    next();
   };
 
   public isMember = (req: AppRequest, res: Response, next: NextFunction) => {
@@ -72,9 +77,22 @@ class AuthMiddleware {
     return parts[1];
   }
 
-  private verifyToken(token: string, secret: string) {
-    return jwt.verify(token, secret);
+  private verifyToken(token: string) {
+    const payload = jwt.verify(token, jwtSettings.secretKey);
+    return typeof payload === 'object' ? payload : null;
+  }
+
+  private async getUserAndProfile(payload: JwtPayload) {
+    let user: UserDocument | null = null;
+    let profile: ProfileDocument | null = null;
+
+    user = await UserProvider.findUserById(payload['id']);
+    if (user) {
+      profile = await ProfileProvider.findUserProfile(user._id);
+    }
+
+    return { user, profile };
   }
 }
 
-export default AuthMiddleware;
+export default new AuthMiddleware();

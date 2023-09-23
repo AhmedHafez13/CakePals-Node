@@ -28,7 +28,7 @@ describe('Authentication Middleware', () => {
 
   describe('authenticate', () => {
     it('should allow guests to access public routes', async () => {
-      await new AuthMiddleware().authenticate(req, res, next);
+      await AuthMiddleware.authenticate(req, res, next);
 
       expect(next).toHaveBeenCalled();
     });
@@ -37,7 +37,7 @@ describe('Authentication Middleware', () => {
       req.headers = { authorization: 'Bearer validtoken' };
 
       jest
-        .spyOn(AuthMiddleware.prototype as any, 'verifyToken')
+        .spyOn(AuthMiddleware as any, 'verifyToken')
         .mockReturnValueOnce({ id: userMock._id });
 
       UserProvider.findUserById = jest.fn().mockResolvedValue(userMock);
@@ -45,14 +45,14 @@ describe('Authentication Middleware', () => {
         .fn()
         .mockResolvedValue(profileMock);
 
-      await new AuthMiddleware().authenticate(req, res, next);
+      await AuthMiddleware.authenticate(req, res, next);
 
       expect(req.user).toEqual(userMock);
       expect(req.profile).toEqual(profileMock);
       expect(next).toHaveBeenCalled();
     });
 
-    it('should handle invalid token and return unauthorized', async () => {
+    it('should pass the invalid token and proceed', async () => {
       req.headers = { authorization: 'Bearer invalidtoken' };
       jwtMock.verify.mockImplementation(() => {
         throw new Error();
@@ -61,9 +61,13 @@ describe('Authentication Middleware', () => {
       const jsonMock = jest.fn();
       res.status = jest.fn().mockReturnValueOnce({ json: jsonMock });
 
-      await new AuthMiddleware().authenticate(req, res, next);
+      await AuthMiddleware.authenticate(req, res, next);
 
-      expect(jsonMock).toHaveBeenCalledWith({ message: 'Unauthorized' });
+      expect(req.user).toEqual(undefined);
+      expect(req.profile).toEqual(undefined);
+      // This middleware is designed just to get the user and its profile
+      // to check if the user is authenticated or check the rule other middleware is used
+      expect(next).toHaveBeenCalled();
     });
   });
 });
@@ -96,8 +100,7 @@ describe('Authorization Middleware', () => {
         req.profile.isActive = true;
       }
 
-      const authMiddleware = new AuthMiddleware();
-      authMiddleware.isMember(req, res, next);
+      AuthMiddleware.isMember(req, res, next);
 
       expect(next).toHaveBeenCalled();
     });
@@ -108,12 +111,12 @@ describe('Authorization Middleware', () => {
         req.profile.isActive = false;
       }
 
-      const authMiddleware = new AuthMiddleware();
-      authMiddleware.isMember(req, res, next);
+      AuthMiddleware.isMember(req, res, next);
 
       expect(res.status).toHaveBeenCalledWith(403);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'Access restricted to members, create or activate your member profile first!',
+        message:
+          'Access restricted to members, create or activate your member profile first!',
       });
       expect(next).not.toHaveBeenCalled();
     });
@@ -123,12 +126,12 @@ describe('Authorization Middleware', () => {
         req.profile.role = UserRole.Baker;
       }
 
-      const authMiddleware = new AuthMiddleware();
-      authMiddleware.isMember(req, res, next);
+      AuthMiddleware.isMember(req, res, next);
 
       expect(res.status).toHaveBeenCalledWith(403);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'Access restricted to members, create or activate your member profile first!',
+        message:
+          'Access restricted to members, create or activate your member profile first!',
       });
       expect(next).not.toHaveBeenCalled();
     });
@@ -141,8 +144,7 @@ describe('Authorization Middleware', () => {
         req.profile.isActive = true;
       }
 
-      const authMiddleware = new AuthMiddleware();
-      authMiddleware.isBaker(req, res, next);
+      AuthMiddleware.isBaker(req, res, next);
 
       expect(next).toHaveBeenCalled();
     });
@@ -153,12 +155,12 @@ describe('Authorization Middleware', () => {
         req.profile.isActive = false;
       }
 
-      const authMiddleware = new AuthMiddleware();
-      authMiddleware.isBaker(req, res, next);
+      AuthMiddleware.isBaker(req, res, next);
 
       expect(res.status).toHaveBeenCalledWith(403);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'Access restricted to bakers, create or activate your baker profile first!',
+        message:
+          'Access restricted to bakers, create or activate your baker profile first!',
       });
       expect(next).not.toHaveBeenCalled();
     });
@@ -168,12 +170,12 @@ describe('Authorization Middleware', () => {
         req.profile.role = UserRole.Member;
       }
 
-      const authMiddleware = new AuthMiddleware();
-      authMiddleware.isBaker(req, res, next);
+      AuthMiddleware.isBaker(req, res, next);
 
       expect(res.status).toHaveBeenCalledWith(403);
       expect(res.json).toHaveBeenCalledWith({
-        message: 'Access restricted to bakers, create or activate your baker profile first!',
+        message:
+          'Access restricted to bakers, create or activate your baker profile first!',
       });
       expect(next).not.toHaveBeenCalled();
     });
