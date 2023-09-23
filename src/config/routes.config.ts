@@ -1,46 +1,46 @@
+import { Application, Request, Response, NextFunction } from 'express';
+import { AppRequest } from '../types/general.types';
 import AuthMiddleware from '../middleware/auth.middleware';
 import NotFoundError from '../error-handler/not-found-error';
-import { Application, Request, Response, NextFunction, Router } from 'express';
-import AuthRoutes from '../modules/auth/auth.routes';
-import { AppRequest } from '../types/general.types';
 import BaseRouter from '../shared/base.router';
+import AuthRoutes from '../modules/auth/auth.routes';
+import ProfileRoutes from '../modules/profile/profile.routes';
 
 class RoutesConfig extends BaseRouter {
   protected override base = '';
-  private authMiddleware: AuthMiddleware;
 
   constructor(app: Application) {
     super(app);
-    this.authMiddleware = new AuthMiddleware();
   }
 
   protected override before(): void {
     // Apply Authentication Wrapper
-    this.app.use(this.authMiddleware.authenticate);
+    this.app.use(AuthMiddleware.authenticate);
   }
 
-  protected override configureRoutes(router: Router) {
+  protected override configureRoutes() {
     // API route
     new AuthRoutes(this.app).register();
+    new ProfileRoutes(this.app).register();
 
     // Test routes [TODO: TEST/REMOVE]
-    router.get('/api', (req: AppRequest, res: Response) => {
+    this.router.get('/api', (req: AppRequest, res: Response) => {
       const authenticated = Boolean(req.user);
       const hasProfile = Boolean(req.profile);
       res.json({ message: 'Hello, World!', authenticated, hasProfile });
     });
-    router.get(
+    this.router.get(
       '/api/member-protected',
-      this.authMiddleware.isMember,
+      AuthMiddleware.isMember,
       (req: AppRequest, res: Response) => {
         const authenticated = Boolean(req.user);
         const profile = req.profile;
         res.json({ message: 'Hello, Member!', authenticated, profile });
       }
     );
-    router.get(
+    this.router.get(
       '/api/baker-protected',
-      this.authMiddleware.isBaker,
+      AuthMiddleware.isBaker,
       (req: AppRequest, res: Response) => {
         const authenticated = Boolean(req.user);
         const profile = req.profile;
