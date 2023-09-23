@@ -25,26 +25,34 @@ class RoutesConfig extends BaseRouter {
 
     // Test routes [TODO: TEST/REMOVE]
     this.router.get('/api', (req: AppRequest, res: Response) => {
-      const authenticated = Boolean(req.user);
-      const hasProfile = Boolean(req.profile);
+      const authenticated = Boolean(req.userData);
+      const hasProfile = Boolean(req.profiles?.length);
       res.json({ message: 'Hello, World!', authenticated, hasProfile });
     });
     this.router.get(
       '/api/member-protected',
       AuthMiddleware.isMember,
       (req: AppRequest, res: Response) => {
-        const authenticated = Boolean(req.user);
-        const profile = req.profile;
-        res.json({ message: 'Hello, Member!', authenticated, profile });
+        const authenticated = Boolean(req.userData);
+        const profiles = req.profiles;
+        res.json({
+          message: 'Hello, Member!',
+          authenticated,
+          profile: profiles,
+        });
       }
     );
     this.router.get(
       '/api/baker-protected',
       AuthMiddleware.isBaker,
       (req: AppRequest, res: Response) => {
-        const authenticated = Boolean(req.user);
-        const profile = req.profile;
-        res.json({ message: 'Hello, Baker!', authenticated, profile });
+        const authenticated = Boolean(req.userData);
+        const profiles = req.profiles;
+        res.json({
+          message: 'Hello, Baker!',
+          authenticated,
+          profile: profiles,
+        });
       }
     );
   }

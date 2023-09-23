@@ -1,7 +1,5 @@
 import { Response, NextFunction } from 'express';
 import { AppRequest } from '../../types/general.types';
-import ProfileProvider from '../../modules/profile/profile.provider';
-import UserProvider from '../../modules/user/user.provider';
 import AuthMiddleware from '../auth.middleware';
 import { userMock, profileMock, jwtMock } from './auth.middleware.mocks';
 import { UserRole } from '../../modules/profile/profile.enums';
@@ -39,16 +37,14 @@ describe('Authentication Middleware', () => {
       jest
         .spyOn(AuthMiddleware as any, 'verifyToken')
         .mockReturnValueOnce({ id: userMock._id });
-
-      UserProvider.findUserById = jest.fn().mockResolvedValue(userMock);
-      ProfileProvider.findUserProfile = jest
-        .fn()
-        .mockResolvedValue(profileMock);
+      jest
+        .spyOn(AuthMiddleware as any, 'getUserAndProfile')
+        .mockReturnValueOnce({ user: userMock, profiles: profileMock });
 
       await AuthMiddleware.authenticate(req, res, next);
 
-      expect(req.user).toEqual(userMock);
-      expect(req.profile).toEqual(profileMock);
+      expect(req.userData).toEqual(userMock);
+      expect(req.profiles).toEqual(profileMock);
       expect(next).toHaveBeenCalled();
     });
 
@@ -64,7 +60,7 @@ describe('Authentication Middleware', () => {
       await AuthMiddleware.authenticate(req, res, next);
 
       expect(req.user).toEqual(undefined);
-      expect(req.profile).toEqual(undefined);
+      expect(req.profiles).toEqual(undefined);
       // This middleware is designed just to get the user and its profile
       // to check if the user is authenticated or check the rule other middleware is used
       expect(next).toHaveBeenCalled();
@@ -80,7 +76,7 @@ describe('Authorization Middleware', () => {
   beforeEach(() => {
     req = {
       headers: {},
-      profile: { role: '' } as any,
+      profiles: [{ role: '' } as any],
     } as AppRequest;
     res = {
       status: jest.fn().mockReturnThis(),
@@ -95,9 +91,9 @@ describe('Authorization Middleware', () => {
 
   describe('isMember', () => {
     it('should allow access for members', async () => {
-      if (req.profile) {
-        req.profile.role = UserRole.Member;
-        req.profile.isActive = true;
+      if (req.profiles) {
+        req.profiles[0].role = UserRole.Member;
+        req.profiles[0].isActive = true;
       }
 
       AuthMiddleware.isMember(req, res, next);
@@ -106,9 +102,9 @@ describe('Authorization Middleware', () => {
     });
 
     it('should restrict access for non-active member profiles', async () => {
-      if (req.profile) {
-        req.profile.role = UserRole.Member;
-        req.profile.isActive = false;
+      if (req.profiles) {
+        req.profiles[0].role = UserRole.Member;
+        req.profiles[0].isActive = false;
       }
 
       AuthMiddleware.isMember(req, res, next);
@@ -122,8 +118,8 @@ describe('Authorization Middleware', () => {
     });
 
     it('should restrict access for non-members', async () => {
-      if (req.profile) {
-        req.profile.role = UserRole.Baker;
+      if (req.profiles) {
+        req.profiles[0].role = UserRole.Baker;
       }
 
       AuthMiddleware.isMember(req, res, next);
@@ -139,9 +135,9 @@ describe('Authorization Middleware', () => {
 
   describe('isBaker', () => {
     it('should allow access for bakers', async () => {
-      if (req.profile) {
-        req.profile.role = UserRole.Baker;
-        req.profile.isActive = true;
+      if (req.profiles) {
+        req.profiles[0].role = UserRole.Baker;
+        req.profiles[0].isActive = true;
       }
 
       AuthMiddleware.isBaker(req, res, next);
@@ -150,9 +146,9 @@ describe('Authorization Middleware', () => {
     });
 
     it('should restrict access for non-active baker profiles', async () => {
-      if (req.profile) {
-        req.profile.role = UserRole.Baker;
-        req.profile.isActive = false;
+      if (req.profiles) {
+        req.profiles[0].role = UserRole.Baker;
+        req.profiles[0].isActive = false;
       }
 
       AuthMiddleware.isBaker(req, res, next);
@@ -166,8 +162,8 @@ describe('Authorization Middleware', () => {
     });
 
     it('should restrict access for non-bakers', async () => {
-      if (req.profile) {
-        req.profile.role = UserRole.Member;
+      if (req.profiles) {
+        req.profiles[0].role = UserRole.Member;
       }
 
       AuthMiddleware.isBaker(req, res, next);

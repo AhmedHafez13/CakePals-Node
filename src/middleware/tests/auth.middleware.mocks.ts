@@ -13,7 +13,7 @@ export const userMock: UserDocument = {
   save: jest.fn(),
 } as unknown as UserDocument;
 
-export const profileMock: ProfileDocument = {
+export const profileMock: ProfileDocument[] = [{
   _id: '67890',
   user: userMock._id,
   role: 'member',
@@ -23,7 +23,7 @@ export const profileMock: ProfileDocument = {
     endTime: new Date(),
   },
   save: jest.fn(),
-} as unknown as ProfileDocument;
+}] as unknown as ProfileDocument[];
 
 export const jwtMock = {
   verify: jest.fn(),

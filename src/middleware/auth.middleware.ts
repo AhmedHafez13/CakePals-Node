@@ -24,9 +24,9 @@ class AuthMiddleware {
       const payload = this.verifyToken(token);
 
       if (payload && payload.hasOwnProperty('id')) {
-        const { user, profile } = await this.getUserAndProfile(payload);
-        if (user) req.user = user;
-        if (profile) req.profile = profile;
+        const { user, profiles } = await this.getUserAndProfile(payload);
+        if (user) req.userData = user;
+        if (profiles) req.profiles = profiles;
       }
 
       return next();
@@ -40,14 +40,16 @@ class AuthMiddleware {
     res: Response,
     next: NextFunction
   ) => {
-    if (!req.user) {
+    if (!req.userData) {
       return res.status(401).json({ message: 'Unauthorized' });
     }
     next();
   };
 
   public isMember = (req: AppRequest, res: Response, next: NextFunction) => {
-    const profile = req.profile;
+    const profile = req.profiles?.find(
+      (profile) => profile.role === UserRole.Member
+    );
     if (!profile || profile?.role !== UserRole.Member || !profile.isActive) {
       return res.status(403).json({
         message:
@@ -58,7 +60,9 @@ class AuthMiddleware {
   };
 
   public isBaker = (req: AppRequest, res: Response, next: NextFunction) => {
-    const profile = req.profile;
+    const profile = req.profiles?.find(
+      (profile) => profile.role === UserRole.Baker
+    );
     if (!profile || profile.role !== UserRole.Baker || !profile.isActive) {
       return res.status(403).json({
         message:
@@ -84,14 +88,14 @@ class AuthMiddleware {
 
   private async getUserAndProfile(payload: JwtPayload) {
     let user: UserDocument | null = null;
-    let profile: ProfileDocument | null = null;
+    let profiles: ProfileDocument[] | null = null;
 
     user = await UserProvider.findUserById(payload['id']);
     if (user) {
-      profile = await ProfileProvider.findUserProfile(user._id);
+      profiles = await ProfileProvider.findUserProfiles(user._id);
     }
 
-    return { user, profile };
+    return { user, profiles };
   }
 }
 

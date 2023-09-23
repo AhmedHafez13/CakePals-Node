@@ -1,5 +1,6 @@
 import express from 'express';
 import { ProfileDocument } from '../modules/profile/profile.model';
+import { UserDocument } from '../modules/user/user.model';
 
 export interface Coordinate {
   type: string;
@@ -7,5 +8,6 @@ export interface Coordinate {
 }
 
 export interface AppRequest extends express.Request {
-  profile?: ProfileDocument;
+  userData?: UserDocument;
+  profiles?: ProfileDocument[];
 }
