@@ -1,5 +1,5 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { UserAttributes } from './user.types';
 
 export interface UserDocument extends Document, UserAttributes {
@@ -16,7 +16,7 @@ const userSchema: Schema<UserDocument, UserModel> = new mongoose.Schema(
     location: {
       type: Schema.Types.ObjectId,
       ref: 'Location',
-      required: true,
+      required: false,
     },
   },
   { timestamps: true }

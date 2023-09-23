@@ -43,7 +43,7 @@ class Server {
   }
 
   private configureRoutes(): void {
-    new RoutesConfig(this.app);
+    new RoutesConfig(this.app).register();
   }
 
   private setupErrorHandling(): void {
