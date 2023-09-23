@@ -7,7 +7,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - mongo-data:/data/db
+      - cakepals-mongo-data:/data/db2
   backend:
     build:
       context: .
@@ -15,7 +15,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - .:/usr/src/server
+      - .:/usr/src/app
     environment:
       NODE_ENV: development
       MONGO_IP: mongo_db
@@ -33,4 +33,4 @@ services:
       - mongo_db
 
 volumes:
-  mongo-data: {}
+  cakepals-mongo-data: {}
