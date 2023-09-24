@@ -36,7 +36,7 @@ Using Docker can make it easier to manage dependencies and ensure consistent env
    - Initialize a new TypeScript project using `npm init -y` and install necessary dependencies (`express`, `mongoose`, `passport`, etc.).
    - Set up a TypeScript configuration file (`tsconfig.json`).
 
-2. `[DONE]` **Dockerizing the Application**
+2. `[DONE]` [**Dockerizing the Application**](./step-02-dockerizing-the-application.md)
 
    - Create a Dockerfile and a docker-compose.yml file to containerize the application.
 
@@ -45,13 +45,13 @@ Using Docker can make it easier to manage dependencies and ensure consistent env
    - Define the data models for Users, Bakers, Products, Orders, and Ratings.
    - Implement the models using Mongoose
 
-4. `[DONE]` [**Implementing Authentication**](./step-04-implementing-authentication)
+4. `[DONE]` [**Implementing Authentication**](./step-04-implementing-authentication.md)
 
    - Set up Passport.js to handle user authentication. Create routes for registration, login, and authentication middleware.
 
-5. **Creating API Endpoints**
+5. `[IN PROGRESS]` [**Creating API Endpoints**](./step-05-creating-api-endpoints.md)
 
-   - Define routes and controllers for each of the required features (e.g., registration, authentication, adding products, listing products, placing orders, etc.).
+   - Define routes and controllers for each of the required features (e.g., activating profiles, adding products, listing products, placing orders, etc.).
 
 6. **Implementing Business Logic**
 
