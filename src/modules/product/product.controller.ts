@@ -1,12 +1,16 @@
 import { Response } from 'express';
 import ProductProvider from './product.provider';
 import productValidation from './product.validation';
-import { UserDocument } from '../user/user.model';
 import { AppRequest } from '../../types/general.types';
+import { ProfileDocument } from '../profile/profile.model';
+import { UserRole } from '../profile/profile.enums';
 
 class ProductController {
   async createProduct(req: AppRequest, res: Response) {
-    const user = req.userData as UserDocument;
+    const profiles = req.profiles as ProfileDocument[];
+    const bakerProfile = profiles.find(
+      (profile) => profile.role === UserRole.Baker
+    ) as ProfileDocument;
 
     // Validate the incoming data
     const { error, value } = productValidation.validateProductInput(req.body);
@@ -19,7 +23,7 @@ class ProductController {
     value.price = value.price * 100;
 
     const product = await ProductProvider.createProduct({
-      baker: user.id,
+      baker: bakerProfile.id,
       ...value,
     });
 
