@@ -8,6 +8,7 @@ Welcome to the CakePals Backend API project! This project aims to create an API 
 - [Features](#features)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
+- [Designing the Data Models](#designing-the-data-models)
 - [API Documentation](#api-documentation)
 - [Manual](#manual)
 - [Development Directory](#development-directory)
@@ -49,7 +50,7 @@ The project follows a modular architecture, with separate modules for each featu
   ...
 ```
 
-More details in the [project plan](./development/project-plan/index.md)
+> More details about the project structure in [the project plan](./development/project-plan/index.md)
 
 ## Getting Started
 
@@ -67,6 +68,25 @@ OR run using docker
 3. Ensure that ports `8080` and `7017` are available.
 4. Navigate to the project's root directory.
 5. Run the command `docker compose up --build`.
+
+## Designing the Data Models
+
+These models will define the structure of the data that will be stored in the database.
+
+### Entities
+
+- User
+- Profile
+- Order
+- Product
+- ProductType
+- Location
+
+### Diagram
+
+![Entities-Diagram](./development/project-plan/media/CakePals-Entities.png)
+
+> More details about the entities and their relationships in [the project plan docs](./development/project-plan/step-03-designing-the-data-models.md)
 
 ## API Documentation
 
@@ -103,7 +123,7 @@ We use the Luxon library to handle date and time in the application. Dates and t
 
 Using minutes allows us to easily perform calculations and validations while ensuring accuracy in time-based operations.
 
-More details and examples for time managing and handling in the [manual here](./development/manual/man-02-manage-time.md)
+> More details and examples for time managing and handling in the [manual here](./development/manual/man-02-manage-time.md)
 
-Feel free to explore the codebase, API documentation, and manual for more details about specific endpoints, models, and functionalities. If you have any further questions or need assistance, please don't hesitate to reach out.
+Explore the codebase, API documentation, and manual for more details about specific endpoints, models, and functionalities. If you have any further questions or need assistance, please don't hesitate to reach out.
 
