@@ -18,11 +18,13 @@ POST /api/profiles
 
 ### Request Body
 
-- `role` (string, required): The role of the profile. Possible values: "member", "baker".
-- `location` (string, optional): The ID of the location associated with the profile. Required for "member" role.
-- `collectionTimeRange` (object, required for "baker" role):
-  - `startTime` (integer, required): The start time of the collection time range in minutes (0 to 1380).
-  - `endTime` (integer, required): The end time of the collection time range in minutes (0 to 1380).
+| Field                           | Type    | Required | Description                                                                     |
+| ------------------------------- | ------- | -------- | ------------------------------------------------------------------------------- |
+| `role`                          | string  | Yes      | The role of the profile. Possible values: "member", "baker".                    |
+| `location`                      | string  | No       | The ID of the location associated with the profile. Required for "member" role. |
+| `collectionTimeRange`           | object  | Yes      | The collection time range for "baker" role.                                     |
+| `collectionTimeRange.startTime` | integer | Yes      | The start time of the collection time range in minutes (0 to 1380).             |
+| `collectionTimeRange.endTime`   | integer | Yes      | The end time of the collection time range in minutes (0 to 1380).               |
 
 **Example for "member" role:**
 
