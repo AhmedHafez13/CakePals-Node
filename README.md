@@ -103,5 +103,7 @@ We use the Luxon library to handle date and time in the application. Dates and t
 
 Using minutes allows us to easily perform calculations and validations while ensuring accuracy in time-based operations.
 
+More details and examples for time managing and handling in the [manual here](./development/manual/man-02-manage-time.md)
+
 Feel free to explore the codebase, API documentation, and manual for more details about specific endpoints, models, and functionalities. If you have any further questions or need assistance, please don't hesitate to reach out.
 
