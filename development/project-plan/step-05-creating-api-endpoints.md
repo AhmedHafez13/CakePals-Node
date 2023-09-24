@@ -40,41 +40,41 @@ In this step, define the routes and controllers for each of the required feature
    - Controller: `OrderController.updateOrderStatus`
    - Protection: Authenticated, Is Baker
 
-7. **Viewing Profile Details**
-   - Endpoint: `GET /api/profile`
-   - Description: Retrieve the details of the user's profile.
-   - Controller: `ProfileController.viewProfile`
-   - Protection: Authenticated
-
-8. **Updating Profile**
-   - Endpoint: `PUT /api/profile`
-   - Description: Update the user's profile information.
-   - Controller: `ProfileController.updateProfile`
-   - Protection: Authenticated
-
-9. **Deleting Profile**
-   - Endpoint: `DELETE /api/profile`
-   - Description: Delete the user's profile.
-   - Controller: `ProfileController.deleteProfile`
-   - Protection: Authenticated
-
-10. **Adding Reviews**
+7. **Adding Reviews**
     - Endpoint: `POST /api/reviews`
     - Description: Add a new review for a product.
     - Controller: `ReviewController.addReview`
     - Protection: Authenticated, Is Member
 
-11. **Listing Reviews**
+8. **Listing Reviews**
     - Endpoint: `GET /api/reviews`
     - Description: Retrieve a list of reviews for a specific product.
     - Controller: `ReviewController.listReviews`
     - Protection: Authenticated, Is Baker
 
-12. **Searching Products**
+9. **Searching Products**
     - Endpoint: `GET /api/products/search`
     - Description: Search for products based on specific criteria.
     - Controller: `ProductController.searchProducts`
     - Protection: Public
+
+10. **Viewing Profile Details**
+   - Endpoint: `GET /api/profile`
+   - Description: Retrieve the details of the user's profile.
+   - Controller: `ProfileController.viewProfile`
+   - Protection: Authenticated
+
+11. **Updating Profile**
+   - Endpoint: `PUT /api/profile`
+   - Description: Update the user's profile information.
+   - Controller: `ProfileController.updateProfile`
+   - Protection: Authenticated
+
+12. **Deleting Profile**
+   - Endpoint: `DELETE /api/profile`
+   - Description: Delete the user's profile.
+   - Controller: `ProfileController.deleteProfile`
+   - Protection: Authenticated
 
 ## Subtasks
 
