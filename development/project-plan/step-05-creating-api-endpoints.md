@@ -16,7 +16,7 @@ In this step, define the routes and controllers for each of the required feature
    - Controller: `ProductController.addProduct`
    - Protection: Authenticated, Is Baker
 
-3. **Listing Products**
+3. `[DONE]` **Listing Products**
    - Endpoint: `GET /api/products`
    - Description: Retrieve a list of available products.
    - Controller: `ProductController.listProducts`
@@ -132,3 +132,18 @@ In this step, define the routes and controllers for each of the required feature
 
 4. **Test Product Creation**:
    - Write unit tests to ensure that products can be added successfully.
+
+### **Implementation Steps for `Listing Products`:**
+
+1. **Define the Route**:
+   - Define a route for listing products (e.g., GET /api/products).
+   - Since this endpoint is public, you don't need to apply any authentication middleware.
+
+2. **Create the Controller Method**:
+   - Create a controller method `ProductController.listProducts` to handle the request and retrieve a list of available products from the database.
+
+3. **Update Product Provider**:
+   - Implement a method in `ProductProvider` to retrieve a list of products.
+
+4. **Test Product Listing**:
+   - Write unit tests to ensure that products can be listed successfully.

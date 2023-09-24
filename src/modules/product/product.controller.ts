@@ -1,9 +1,10 @@
 import { Response } from 'express';
-import ProductProvider from './product.provider';
-import productValidation from './product.validation';
 import { AppRequest } from '../../types/general.types';
-import { ProfileDocument } from '../profile/profile.model';
 import { UserRole } from '../profile/profile.enums';
+import { ProfileDocument } from '../profile/profile.model';
+import { ProductDocument } from './product.model';
+import ProductProvider from './product.provider';
+import ProductValidation from './product.validation';
 
 class ProductController {
   async createProduct(req: AppRequest, res: Response) {
@@ -13,7 +14,7 @@ class ProductController {
     ) as ProfileDocument;
 
     // Validate the incoming data
-    const { error, value } = productValidation.validateProductInput(req.body);
+    const { error, value } = ProductValidation.validateProductInput(req.body);
 
     if (error) {
       return res.status(400).json({ message: error.details[0].message });
@@ -28,6 +29,12 @@ class ProductController {
     });
 
     return res.json({ product });
+  }
+
+  async listProducts(_req: AppRequest, res: Response) {
+    const products: ProductDocument[] = await ProductProvider.listProducts();
+
+    return res.json({ products });
   }
 }
 

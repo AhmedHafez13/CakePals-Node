@@ -10,17 +10,14 @@ class ProductRoutes extends BaseRouter {
     super(app);
   }
 
-  protected override before(): void {
-    // Apply isAuthenticated and isBaker middlewares to the endpoint
-    this.router.use(
-      [`/`],
-      AuthMiddleware.isAuthenticated,
-      AuthMiddleware.isBaker
-    );
-  }
-
   protected override configureRoutes(): void {
-    this.router.post('/', this.wrapAsync(ProductController.createProduct));
+    this.router.get('/', this.wrapAsync(ProductController.listProducts));
+    this.router.post(
+      '/',
+      AuthMiddleware.isAuthenticated,
+      AuthMiddleware.isBaker,
+      this.wrapAsync(ProductController.createProduct)
+    );
   }
 }
 
