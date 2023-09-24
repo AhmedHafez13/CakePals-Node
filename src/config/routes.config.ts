@@ -5,6 +5,7 @@ import NotFoundError from '../error-handler/not-found-error';
 import BaseRouter from '../shared/base.router';
 import AuthRoutes from '../modules/auth/auth.routes';
 import ProfileRoutes from '../modules/profile/profile.routes';
+import ProductRoutes from '../modules/product/product.routes';
 
 class RoutesConfig extends BaseRouter {
   protected override base = '';
@@ -22,6 +23,7 @@ class RoutesConfig extends BaseRouter {
     // API route
     new AuthRoutes(this.app).register();
     new ProfileRoutes(this.app).register();
+    new ProductRoutes(this.app).register();
 
     // Test routes [TODO: TEST/REMOVE]
     this.router.get('/api', (req: AppRequest, res: Response) => {

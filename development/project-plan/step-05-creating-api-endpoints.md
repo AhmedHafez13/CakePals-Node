@@ -4,13 +4,13 @@ In this step, define the routes and controllers for each of the required feature
 
 ## Endpoints
 
-1. **Activating Profiles**
+1. `[DONE]` **Activating Profiles**
    - Endpoint: `POST /api/profile/`
    - Description: Create a user's profile after registration.
    - Controller: `ProfileController.createProfile`
    - Protection: Authenticated
 
-2. **Adding Products**
+2. `[DONE]` **Adding Products**
    - Endpoint: `POST /api/products`
    - Description: Add a new product to the system.
    - Controller: `ProductController.addProduct`
@@ -78,7 +78,7 @@ In this step, define the routes and controllers for each of the required feature
 
 ## Subtasks
 
-### Creating Profiles Endpoint Requirements
+### Creating Profiles Endpoint
 
 #### For Baker Profiles:
 
@@ -117,3 +117,18 @@ In this step, define the routes and controllers for each of the required feature
 
 5. **Return the Response**:
    - Return a response indicating the success of the profile activation.
+
+### Implementation Steps for `Adding Products`
+
+1. **Define the Route**:
+   - Define a route for adding products (e.g., POST /api/products).
+   - Apply authentication middleware to endpoint.
+
+2. **Create the Controller Method**:
+   - Create a controller method `ProductController.createProduct` to handle the request and add the product to the database.
+   
+3. **Implement Product Validation**:
+   - Set up validation for the product data to ensure that it meets the required criteria (e.g., valid price, non-empty name, etc.).
+
+4. **Test Product Creation**:
+   - Write unit tests to ensure that products can be added successfully.

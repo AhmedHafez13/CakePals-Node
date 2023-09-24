@@ -1,7 +1,7 @@
 import { Types } from 'mongoose';
 
 export interface ProductAttributes {
-  baker: Types.ObjectId;
+  baker: Types.ObjectId | string;
   productType: Types.ObjectId;
   description: string;
   price: number;
