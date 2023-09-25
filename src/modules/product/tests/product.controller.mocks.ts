@@ -1,6 +1,7 @@
 import { Response } from 'express';
 import { ObjectId } from 'mongodb';
 import { UserDocument } from '../../../modules/user/user.model';
+import { UserRole } from '../../../modules/profile/profile.enums';
 import { AppRequest } from '../../../types/general.types';
 
 // Mocked user data
@@ -28,6 +29,11 @@ export const productMock = {
 // Mocked request object
 export const requestMock: AppRequest = {
   userData: userMock,
+  profiles: [
+    {
+      role: UserRole.Baker,
+    },
+  ],
   body: {
     ...commonProductData,
   },
