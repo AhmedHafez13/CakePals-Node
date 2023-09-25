@@ -53,9 +53,10 @@ Using Docker can make it easier to manage dependencies and ensure consistent env
 
    - Define routes and controllers for each of the required features (e.g., activating profiles, adding products, listing products, placing orders, etc.).
 
-6. **Implementing Business Logic**
+6. `[IN PROGRESS]` [**Implementing Business Logic**](./step-06-implementing-business-logic.md)
 
    - Implement the logic for calculating available collection times based on the baking time and existing orders.
+   - Test the Order endpoint by following the test cases mentioned in this document: [Order Test Cases](./step-06.01-order-test-cases.md)
 
 7. **Testing**
 

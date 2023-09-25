@@ -9,6 +9,7 @@ Welcome to the CakePals Backend API project! This project aims to create an API 
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
 - [Designing the Data Models](#designing-the-data-models)
+- [Order Process Machine](#order-process)
 - [API Documentation](#api-documentation)
 - [Manual](#manual)
 - [Development Directory](#development-directory)
@@ -50,7 +51,7 @@ The project follows a modular architecture, with separate modules for each featu
   ...
 ```
 
-> More details about the project structure in [the project plan](./development/project-plan/index.md)
+> More details about the project structure in [the project plan docs](./development/project-plan/index.md)
 
 ## Getting Started
 
@@ -88,6 +89,16 @@ These models will define the structure of the data that will be stored in the da
 
 > More details about the entities and their relationships in [the project plan docs](./development/project-plan/step-03-designing-the-data-models.md)
 
+## Order Process
+
+Below is a visual representation of the Order Process Machine:
+
+![Order Process Machine](./development/project-plan/media/CakePals-Order-Management-Process.png)
+
+This diagram illustrates the states and events involved in the order management process.
+
+> More details about the entities and their relationships in [the project plan docs](./development/project-plan/step-06-implementing-business-logic.md)
+
 ## API Documentation
 
 Please refer to the [API documentation](development/api-docs/index.md) for detailed information on available endpoints, request/response formats, and usage examples.
@@ -123,7 +134,7 @@ We use the Luxon library to handle date and time in the application. Dates and t
 
 Using minutes allows us to easily perform calculations and validations while ensuring accuracy in time-based operations.
 
-> More details and examples for time managing and handling in the [manual here](./development/manual/man-02-manage-time.md)
+> More details and examples for time managing and handling in [the manual](./development/manual/man-02-manage-time.md)
 
 Explore the codebase, API documentation, and manual for more details about specific endpoints, models, and functionalities. If you have any further questions or need assistance, please don't hesitate to reach out.
 
