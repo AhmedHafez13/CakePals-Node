@@ -28,20 +28,26 @@ Design the data models that will represent the core entities in the CakePals app
    - `user`: ObjectId (Reference to User, Required)
    - `role`: Enum ('baker', 'member', etc...) (Required)
    - `isActive`: Boolean (Default: true)
-   - `collectionTimeRange`: 
-     - `startTime`: Date (Required)
-     - `endTime`: Date (Required)
+   - `collectionTimeRange`:
+     - `startTime`: Number (Required)
+     - `endTime`: Number (Required)
 
 3. **Order Schema**:
 
    - `product`: ObjectId (Reference to Product, Required)
    - `member`: ObjectId (Reference to Profile, Required)
-   - `rating`: Number
-   - `comment`: String
-   - `startTime`: DateTime (Required)
-   - `endTime`: DateTime (Required)
-   - `deliveryTime`: DateTime (Required)
-   - `deliveryStatus`: Enum ('pending', 'inProgress', 'delivered', etc...) (Required)
+   - `paymentMethod`: Enum ('Credit Card', 'PayPal', 'Cash', etc...) (Required)
+   - `feedback`:
+      - `rating`: Number
+      - `comment`: String
+   - `collectionTime`: DateTime (Required) [The time the member want to collect the order]
+   - `actualCollectionTime`: DateTime [The actual time the member collected the order]
+   - `acceptedTime`: DateTime [The time the baker accepted the order]
+   - `preparationTime`:
+      - `start`: DateTime [The time the baker starts to prepare the order]
+      - `end`: DateTime [The time the order ready to be collected]
+   - `orderStatus`: Enum ('pending', 'accepted', 'rejected', etc...) (Required)
+   - `deliveryStatus`: Enum ('inProgress', 'ready', 'collected', etc...) (Required)
 
 4. **ProductType Schema**:
 
@@ -99,17 +105,11 @@ Design the data models that will represent the core entities in the CakePals app
    - Ensure that `collectionTimeRange` has a valid format for start and end times.
    - Validate that `role` is within an expected set of values ('baker', 'member', etc...).
 
-3. **Order**:
-   - Ensure that `startTime`, `endTime`, and `deliveryTime` are in the correct format and follow logical order.
-
-4. **Product**:
+3. **Product**:
    - Validate that `price` and `prepTime` have valid values.
 
-5. **ProductType**:
+4. **ProductType**:
    - Ensure that `type` follows an expected set of values ('cake', 'pie', etc...).
-
-6. **Location**:
-   - Validate that `latitude` and `longitude` fall within appropriate ranges.
 
 ### 3.5. Diagram
 
