@@ -12,7 +12,7 @@ class OrderRoutes extends BaseRouter {
 
   protected override before(): void {
     // Apply isAuthenticated middlewares to all endpoints endpoint
-    this.router.use([`/`], AuthMiddleware.isAuthenticated);
+    this.router.use([`/`, '/:orderId'], AuthMiddleware.isAuthenticated);
   }
 
   protected override configureRoutes(): void {
@@ -21,6 +21,12 @@ class OrderRoutes extends BaseRouter {
       '/',
       AuthMiddleware.isMember,
       this.wrapAsync(OrderController.placeOrder)
+    );
+
+    this.router.put(
+      '/:orderId',
+      AuthMiddleware.isMember,
+      this.wrapAsync(OrderController.editOrder)
     );
   }
 }

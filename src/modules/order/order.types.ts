@@ -19,3 +19,15 @@ export interface OrderAttributes {
   orderStatus: OrderStatus;
   deliveryStatus: CollectionStatus;
 }
+
+export interface PlaceOrderData {
+  product: string;
+  paymentMethod: PaymentMethods;
+  collectionTime: string;
+}
+
+export interface EditOrderData {
+  orderId: string;
+  paymentMethod: PaymentMethods;
+  collectionTime: string;
+}
