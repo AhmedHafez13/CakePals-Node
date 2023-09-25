@@ -1,6 +1,20 @@
 export enum OrderStatus {
-  Pending = 'pending',
-  InProgress = 'inProgress',
-  Delivered = 'delivered',
-  // [TODO] Add other status values if needed
+  Pending = 'Pending',
+  Accepted = 'Accepted',
+  Rejected = 'Rejected',
+  Canceled = 'Canceled',
+  Completed = 'Completed',
+}
+
+export enum CollectionStatus {
+  None = 'None',
+  InProgress = 'In Progress',
+  Ready = 'Ready',
+  Collected = 'Collected',
+}
+
+export enum PaymentMethods {
+  CreditCard = 'Credit Card',
+  PayPal = 'PayPal',
+  Cash = 'Cash',
 }

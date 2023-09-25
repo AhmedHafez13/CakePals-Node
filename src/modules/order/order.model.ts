@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 import { OrderAttributes } from './order.types';
-import { OrderStatus } from './order.enums';
+import { CollectionStatus, OrderStatus, PaymentMethods } from './order.enums';
 
 export interface OrderDocument extends Document, OrderAttributes {}
 
@@ -18,24 +18,33 @@ const orderSchema: Schema<OrderDocument, OrderModel> = new mongoose.Schema(
       ref: 'Profile',
       required: true,
     },
-    rating: Number,
-    comment: String,
-    startTime: {
+    paymentMethod: {
+      type: String,
+      enum: Object.values(PaymentMethods),
+      required: true,
+    },
+    feedback: {
+      rating: Number,
+      comment: String,
+    },
+    collectionTime: {
       type: Date,
       required: true,
     },
-    endTime: {
-      type: Date,
-      required: true,
+    actualCollectionTime: Date,
+    acceptedTime: Date,
+    preparationTime: {
+      start: Date,
+      end: Date,
     },
-    deliveryTime: {
-      type: Date,
-      required: true,
+    orderStatus: {
+      type: String,
+      enum: Object.values(OrderStatus),
+      default: OrderStatus.Pending,
     },
     deliveryStatus: {
       type: String,
-      enum: Object.values(OrderStatus),
-      required: true,
+      enum: Object.values(CollectionStatus),
     },
   },
   { timestamps: true }

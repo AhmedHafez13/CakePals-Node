@@ -1,14 +1,21 @@
 import { Types } from 'mongoose';
-import { OrderStatus } from './order.enums';
+import { CollectionStatus, OrderStatus, PaymentMethods } from './order.enums';
 
 export interface OrderAttributes {
   product: Types.ObjectId;
   member: Types.ObjectId;
-  baker: Types.ObjectId;
-  rating?: number;
-  comment?: string;
-  startTime: Date;
-  endTime: Date;
-  deliveryTime: Date;
-  deliveryStatus: OrderStatus;
+  paymentMethod: PaymentMethods;
+  feedback?: {
+    rating: number;
+    comment?: string;
+  };
+  collectionTime: Date;
+  actualCollectionTime?: Date;
+  acceptedTime?: Date;
+  preparationTime?: {
+    start?: Date;
+    end?: Date;
+  };
+  orderStatus: OrderStatus;
+  deliveryStatus: CollectionStatus;
 }
