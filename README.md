@@ -117,9 +117,8 @@ Inside the [development](development) directory, you'll find:
 
 ## Edge Cases
 
-- **Baker's Collection Time Range**: Orders can only be placed during the time range specified by the Baker in their profile.
+- **Baker's Collection Time Range**: Orders can only be placed during the time range specified by the Baker in their profile. The Order.collectionTime must be later than the BakerProfile.collectionTimeRange.startTime and before BakerProfile.collectionTimeRange.endTime
 - **No Orders in Progress**: Orders can only be placed when the Baker is not currently fulfilling another order.
-- **Start Time Calculation**: To calculate the order start time, the delivery time is subtracted from the product's preparation time (Order.deliveryTime - Product.prepTime = Order.startTime). The Order.startTime must be later than the BakerProfile.collectionTimeRange.startTime.
 
 ## Date and Time Handling
 

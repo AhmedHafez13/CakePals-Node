@@ -42,7 +42,7 @@ If a baker's collection time range is:
 
 ### 2. Order Start Time Calculation
 
-To determine the start time of an order, we subtract the delivery time from the product's preparation time.
+To determine the start time of an order, we subtract the collection time from the product's preparation time.
 
 **Example:**
 
@@ -51,11 +51,11 @@ If a product requires 2 hours (120 minutes) of preparation time and the customer
 ```json
 {
   "prepTime": 120,    // 2 hours
-  "deliveryTime": 30  // 30 minutes
+  "collectionTime": 30  // 30 minutes
 }
 ```
 
-- Order Start Time = Preparation Time - Delivery Time
+- Order Start Time = Preparation Time - Collection Time
 - Order Start Time = 120 - 30 = 90 minutes
 
 ### 3. Ensuring Baker Availability

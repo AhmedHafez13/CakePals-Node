@@ -106,6 +106,26 @@
     }
     ```
 
+### Test Case 5: Member Ordering Their Own Product
+
+- **Input**:
+  - Request Body:
+    ```json
+    {
+      "product": "650fa1bf547bf972158e341f", // User's own product ID
+      "paymentMethod": "Credit Card",
+      "collectionTime": "2023-09-24T14:00:00"
+    }
+    ```
+- **Expected Result**:
+  - Status Code: 403
+  - Response Body:
+    ```json
+    {
+      "message": "You cannot order your own product"
+    }
+    ```
+
 ## Edit Order
 
 - **API Route**: `PUT /api/orders/:orderId`

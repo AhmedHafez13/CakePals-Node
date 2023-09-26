@@ -40,14 +40,19 @@ Design the data models that will represent the core entities in the CakePals app
    - `feedback`:
       - `rating`: Number
       - `comment`: String
-   - `collectionTime`: DateTime (Required) [The time the member want to collect the order]
-   - `actualCollectionTime`: DateTime [The actual time the member collected the order]
    - `acceptedTime`: DateTime [The time the baker accepted the order]
-   - `preparationTime`:
-      - `start`: DateTime [The time the baker starts to prepare the order]
-      - `end`: DateTime [The time the order ready to be collected]
+   - `collectionTime`:
+      - `ideal` DateTime (Required) [The time the member want to collect the order]
+      - `ideal` DateTime [The actual time the member collected the order]
+   - `PrepTime`:
+      - `ideal`:
+         - `start`: DateTime [The ideal time the baker should starts to prepare the order]
+         - `end`: DateTime [The ideal time the order should be ready to be collected]
+      - `actual`
+         - `start`: DateTime [The time the baker starts to prepare the order]
+         - `end`: DateTime [The time the order is ready to be collected]
    - `orderStatus`: Enum ('pending', 'accepted', 'rejected', etc...) (Required)
-   - `deliveryStatus`: Enum ('inProgress', 'ready', 'collected', etc...) (Required)
+   - `collectionStatus`: Enum ('inProgress', 'ready', 'collected', etc...) (Required)
 
 4. **ProductType Schema**:
 

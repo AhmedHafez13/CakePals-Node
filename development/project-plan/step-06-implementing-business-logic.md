@@ -11,26 +11,27 @@
   - Rejected
   - Canceled
   - Completed
-- **DeliveryStatus** None
+- **CollectionStatus**
+  - None
   - In Progress
   - Ready
   - Collected
 
 ## Events
 
-| Event             | Role   | Allowed Status         | Updated Order/Collection Status |
-| ----------------- | ------ | ---------------------- | ------------------------------- |
-| Place Order       | Member | ---                    | `Pending`  / `None`             |
-| Edit Order        | Member | `Pending`              | `Pending`  / `None`             |
-| Accept Order      | Baker  | `Pending`              | `Accepted` / `None`             |
-| Reject Order      | Baker  | `Pending`              | `Rejected` / `None`             |
-| Cancel Order      | Member | `Pending`, `Accepted`* | `Canceled` / `None`             |
-| Start Preparation | Baker  | `Accepted`             | `Accepted` / `In Progress`      |
-| Order Ready       | Baker  | `In Progress`          | `Accepted` / `Ready`            |
-| Collect Order     | Member | `Ready`                | `Accepted` / `Completed`        |
-| Add Feedback      | Member | `Completed`            | `Accepted` / `Completed`        |
+| Event             | Role   | Allowed Status         | Updated Order Status | Updated Collection Status |
+| ----------------- | ------ | ---------------------- | -------------------- | ------------------------- |
+| Place Order       | Member | N/A                    | `Pending`            | `None`                    |
+| Edit Order        | Member | `Pending`              | `Pending`            | -                         |
+| Accept Order      | Baker  | `Pending`              | `Accepted`           | -                         |
+| Reject Order      | Baker  | `Pending`              | `Rejected`           | -                         |
+| Cancel Order      | Member | `Pending`, `Accepted`* | `Canceled`           | -                         |
+| Start Preparation | Baker  | `Accepted`             | -                    | `In Progress`             |
+| Order Ready       | Baker  | `In Progress`          | -                    | `Ready`                   |
+| Collect Order     | Member | `Ready`                | `Completed`          | `Collected`               |
+| Add Feedback      | Member | `Completed`            | -                    | -                         |
 
-> \* The Member can only cancel the Order when its Order status is `Accepted` if its Collection status is `None`. Cancellation of an order is not possible while the baker is working on it.
+> \* The Member can cancel the Order when its Order status is `Accepted` only if its Collection status is `None`. Cancellation of an order is not possible while the baker is working on it.
 
 ## Implementation
 
