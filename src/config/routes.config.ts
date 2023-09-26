@@ -1,7 +1,7 @@
 import { Application, Request, Response, NextFunction } from 'express';
 import { AppRequest } from '../types/general.types';
 import AuthMiddleware from '../middleware/auth.middleware';
-import NotFoundError from '../error-handler/not-found-error';
+import { NotFoundError } from '../error-handler/error.handlers';
 import BaseRouter from '../shared/base.router';
 import AuthRoutes from '../modules/auth/auth.routes';
 import ProfileRoutes from '../modules/profile/profile.routes';
