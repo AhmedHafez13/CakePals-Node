@@ -63,6 +63,8 @@ class OrderProvider {
   ): Promise<boolean> {
     const overlappingOrders = await OrderModel.find({
       product: productId,
+      orderStatus: OrderStatus.Accepted,
+      collectionStatus: { $ne: CollectionStatus.Ready },
       'prepTime.ideal.start': { $lt: orderTimeRange.end },
       'prepTime.ideal.end': { $gt: orderTimeRange.start },
     });
