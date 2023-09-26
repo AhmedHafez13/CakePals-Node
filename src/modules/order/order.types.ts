@@ -9,15 +9,14 @@ export interface OrderAttributes {
     rating: number;
     comment?: string;
   };
-  collectionTime: Date;
-  actualCollectionTime?: Date;
   acceptedTime?: Date;
-  preparationTime?: {
-    start?: Date;
-    end?: Date;
+  collectionTime: { ideal: Date; actual?: Date };
+  prepTime: {
+    ideal: { start: Date; end: Date };
+    actual?: { start: Date; end: Date };
   };
   orderStatus: OrderStatus;
-  deliveryStatus: CollectionStatus;
+  collectionStatus: CollectionStatus;
 }
 
 export interface PlaceOrderData {

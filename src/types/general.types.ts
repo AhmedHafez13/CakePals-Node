@@ -11,3 +11,8 @@ export interface AppRequest extends express.Request {
   userData?: UserDocument;
   profiles?: ProfileDocument[];
 }
+
+export interface DateRange {
+  start: Date;
+  end: Date;
+}

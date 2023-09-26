@@ -12,3 +12,7 @@ export interface ProfileAttributes {
   isActive?: boolean;
   collectionTimeRange?: CollectionTimeRange;
 }
+
+export interface BakerProfileAttributes extends ProfileAttributes {
+  collectionTimeRange: CollectionTimeRange;
+}

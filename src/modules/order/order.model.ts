@@ -27,24 +27,27 @@ const orderSchema: Schema<OrderDocument, OrderModel> = new mongoose.Schema(
       rating: Number,
       comment: String,
     },
+    acceptedTime: { ideal: Date, actual: Date },
     collectionTime: {
-      type: Date,
-      required: true,
+      ideal: { type: Date, required: true },
+      actual: Date,
     },
-    actualCollectionTime: Date,
-    acceptedTime: Date,
-    preparationTime: {
-      start: Date,
-      end: Date,
+    prepTime: {
+      ideal: {
+        start: { type: Date, required: true },
+        end: { type: Date, required: true },
+      },
+      actual: { start: Date, end: Date },
     },
     orderStatus: {
       type: String,
       enum: Object.values(OrderStatus),
       default: OrderStatus.Pending,
     },
-    deliveryStatus: {
+    collectionStatus: {
       type: String,
       enum: Object.values(CollectionStatus),
+      default: CollectionStatus.None,
     },
   },
   { timestamps: true }
